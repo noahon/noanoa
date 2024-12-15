@@ -1,21 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAG Chatbot</title>
+    <title>꿈 해몽 사이트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            width: 60%;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>RAG 기반 해몽 챗봇</h1>
-    <form action="/ask" method="post">
-        <label for="query">질문을 입력하세요:</label>
-        <input type="text" id="query" name="query" required>
-        <button type="submit">보내기</button>
+    <h1>꿈 해몽 사이트</h1>
+    <p>꿈 내용을 입력하시면, 꿈 해몽 전문가가 해석해 드립니다.</p>
+    <form id="query-form">
+        <input type="text" name="query" id="query-input" placeholder="꿈 내용을 입력하세요..." style="width: 60%; padding: 10px;">
+        <button type="submit" style="padding: 10px;">제출</button>
     </form>
+    <div id="response">
+        <strong>해몽 결과:</strong>
+        <p id="response-text">여기에 해몽이 표시됩니다...</p>
+    </div>
+    <script>
+        const form = document.getElementById('query-form');
+        const responseText = document.getElementById('response-text');
 
-    {% if response %}
-        <h2>답변:</h2>
-        <p>{{ response }}</p>
-    {% endif %}
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const query = formData.get('query');
+
+            const response = await fetch('/query', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                responseText.textContent = data.response || '응답을 받을 수 없습니다.';
+            } else {
+                responseText.textContent = '오류가 발생했습니다.';
+            }
+        });
+    </script>
 </body>
 </html>
