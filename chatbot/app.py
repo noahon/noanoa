@@ -58,6 +58,3 @@ def ask():
     ]
     res = llm.invoke(messages)
     return jsonify({"response": res.content})
-
-if __name__ == '__main__':
-    app.run(debug=True)
