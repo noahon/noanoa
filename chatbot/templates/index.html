@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chatbot</title>
+</head>
+<body>
+    <h1>RAG 기반 해몽 챗봇</h1>
+    <form action="/ask" method="post">
+        <label for="query">질문을 입력하세요:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">보내기</button>
+    </form>
+
+    {% if response %}
+        <h2>답변:</h2>
+        <p>{{ response }}</p>
+    {% endif %}
+</body>
+</html>
