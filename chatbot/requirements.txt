@@ -1,6 +1,8 @@
-flask
+Flask
+gunicorn
 langchain-openai
 langchain-community
 chromadb
 requests
 python-dotenv
+langchain-chroma
